@@ -42,6 +42,7 @@ function RewardsForTheWorthy.TimeUntilNextGeode()
   local nextGeode = RewardsForTheWorthy.savedVars.nextGeode
   if(nextGeode == nil) then
     CHAT_ROUTER:AddSystemMessage("Error: Cannot track time left until you have looted your first geode from a Rewards for the Worthy coffer.")
+    return
   end
   RewardsForTheWorthy.TimeDifference(now, nextGeode)
 end
