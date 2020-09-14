@@ -6,13 +6,3 @@ A simple addon that informs you whether you have a Transmutation Geode available
 ; registered trademarks or trademarks of ZeniMax Media Inc. in the United
 ; States and/or other countries. All rights reserved.
 ; You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
-
-## Title: RewardsForTheWorthy
-## Description: Use /rftw to inform you whether a Transmutation Geode is available to loot from a Rewards for the Worthy, or how much time is left before the next one.
-## Author: bitrock
-## Version: 1.0.1
-## APIVersion: 100032
-## SavedVariables: RFTWSavedVars
-
-RewardsForTheWorthy.lua
-
