@@ -5,7 +5,6 @@ RewardsForTheWorthy.defaults = {}
 local ITEMLINK_RFTW_GEODE = "|H1:item:134618:124:1:0:0:0:5:10000:0:0:0:0:0:0:1:0:0:1:0:0:0|h|h"
 local ITEMID_RFTW_GEODE = 134618
 local HOURS_20 = 72000
-local playerName
 local hasAlertedUser = false
 
 
@@ -18,17 +17,16 @@ function RewardsForTheWorthy.OnAddOnLoaded(event, addonName)
   if addonName ~= RewardsForTheWorthy.name then return end
   EVENT_MANAGER:UnregisterForEvent(RewardsForTheWorthy.name, EVENT_ADD_ON_LOADED, RewardsForTheWorthy.OnAddOnLoaded)
 
-  RewardsForTheWorthy.savedVars = ZO_SavedVars:NewAccountWide("RFTWSavedVars", 1, nil, RewardsForTheWorthy.defaults, nil, "$InstallationWide")
+  RewardsForTheWorthy.savedVars = ZO_SavedVars:NewAccountWide("RFTWSavedVars", 2, nil, RewardsForTheWorthy.defaults, GetWorldName())
   SLASH_COMMANDS["/rftw"] = RewardsForTheWorthy.TimeUntilNextGeode
-  playerName = GetUnitName("player")
 
   RewardsForTheWorthy:Initialize()
 end
 
-function RewardsForTheWorthy.ReceivedLoot(eventCode, lootedBy, itemLink, quantity, itemSound, lootType, isStolen)
-  local formattedLootedBy = LocalizeString("<<1>>", lootedBy) -- no control codes
-  if(formattedLootedBy ~= playerName) then return end
-  local itemId = GetItemLinkItemId(itemLink)
+function RewardsForTheWorthy.ReceivedLoot(eventCode, receivedBy, itemName, quantity, soundCategory, lootType, isMe, isPickpocketLoot, questItemIcon, itemId, isStolen)
+
+  if not isMe then return end
+
   if(itemId == ITEMID_RFTW_GEODE) then
     CHAT_ROUTER:AddSystemMessage("A Rewards for the Worthy Geode was looted.")
     local now = GetTimeStamp()
@@ -43,7 +41,7 @@ function RewardsForTheWorthy.TimeUntilNextGeode()
   local now = GetTimeStamp()
   local nextGeode = RewardsForTheWorthy.savedVars.nextGeode
   if(nextGeode == nil) then
-    CHAT_ROUTER:AddSystemMessage("Error: Cannot track time left until you have looted your first geode from a RFTW.")
+    CHAT_ROUTER:AddSystemMessage("Error: Cannot track time left until you have looted your first geode from a Rewards for the Worthy coffer.")
   end
   RewardsForTheWorthy.TimeDifference(now, nextGeode)
 end
@@ -65,7 +63,7 @@ function RewardsForTheWorthy.TimeDifference(date1, date2)
 
   local secondsDifference = zo_floor(difference);
 
-  CHAT_ROUTER:AddSystemMessage(string.format("%02d hours, %02d minutes, %02d seconds til next geode.", hoursDifference, minutesDifference, secondsDifference))
+  CHAT_ROUTER:AddSystemMessage(string.format("%02d hours, %02d minutes, %02d seconds until the next geode.", hoursDifference, minutesDifference, secondsDifference))
 end
 
 function RewardsForTheWorthy.CheckGeodeReady()
