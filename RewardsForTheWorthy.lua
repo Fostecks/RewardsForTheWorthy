@@ -70,7 +70,6 @@ end
 
 function RewardsForTheWorthy.CheckGeodeReady()
   local now = GetTimeStamp()
-  d("hey")
   local nextGeode = RewardsForTheWorthy.savedVars.nextGeode
   if(nextGeode == nil) then return end
   if(now > nextGeode and hasAlertedUser == false) then
