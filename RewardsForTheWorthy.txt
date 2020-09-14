@@ -7,7 +7,7 @@
 ## Title: RewardsForTheWorthy
 ## Description: Use /rftw to inform you whether a Transmutation Geode is available to loot from a Rewards for the Worthy, or how much time is left before the next one.
 ## Author: bitrock
-## Version: 1.0.1
+## Version: 1.0.2
 ## APIVersion: 100032
 ## SavedVariables: RFTWSavedVars
 
